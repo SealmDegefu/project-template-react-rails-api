@@ -7,6 +7,7 @@ import Index from './components/login/Index';
 import NavBar from './components/NavBar'
 import Wellness from './pages/Wellness';
 import Therapist from './pages/Therapist';
+import Trainers from  './pages/Trainers'
 
 
 function App() {
@@ -35,6 +36,10 @@ function App() {
         <Route path="/wellness">
           <Wellness />
         </Route>
+        <Route path="/trainers">
+      <Trainers  />
+      </Route>
+        
         <Route path="/therapist">
           <Therapist />
         </Route>
