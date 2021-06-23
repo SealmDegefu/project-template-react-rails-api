@@ -1,9 +1,8 @@
-# Project Template: React/Rails API
+# WHOLENESS
 
 ## Description
 
-This project is scaffolded so that you can build a React frontend and Rails
-backend together, and easily deploy them to Heroku.
+Wholeness is a complete wellness app that allows users to find different type of specialist from personal trainers to mental health therapist to help them be the best version of themselves. This is built using Ruby, Rails, React, and Postgresql
 
 ## Requirements
 
