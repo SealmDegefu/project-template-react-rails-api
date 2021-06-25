@@ -210,7 +210,7 @@ Trainer.create!([
 	specialty: "Trainer"
 },
 {
-	image_url: "https://lh3.googleusercontent.com/proxy/brjOgx4GKk27lxlSB3_gxTyOb6hul9YjNEdE45cZKD5Gfg6wpvt-ACAb7wO8FozXGlD3JQiiIHHSJzUizmvoABlLj3y0yaO_0n4q7v20TnlWCY3Lx0xV3O4PLKgEQ3GLmZAfqBYOpMW6GHWWgcj4zKbMtCtIGG9L6HSVhRyP", 
+	image_url: "https://fitnesstrainer.imgix.net/uploads/instructor/picture/16929/DSC01559.jpg?auto=format%2Cenhance%2Credeye", 
 	name: "Desmond J. Hammer", 
 	about_me: "I've always enjoyed writing and public speaking, even going back to high school. This led me to pursue writing-related passions, for example in college.",
 	gender: "Male",

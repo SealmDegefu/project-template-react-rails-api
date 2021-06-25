@@ -19,6 +19,8 @@ const ProfileCard = ({ profile, onDeleteProfile, updateProfile, history, user })
 					if (r.ok) {
 						onDeleteProfile(profile);
 					}
+					alert("your profile has been deleted")
+					history.push('/')
 				});
 			}
 			const submitUpdate = value => {

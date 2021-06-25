@@ -85,7 +85,7 @@ const Register = ({ onLogin }) => {
             </Form>
           </div>
           <div className="footer">
-            <Button>
+            <Button style={{backgroundColor: "#9D7E68"}}>
             {isLoading ? "Loading..." : "Sign Up"}
             </Button>
             {errors.map((err) => (
