@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import './App.css';
 import Home from './components/Home';
 import Login from './components/login/Login';
-import { Switch, Route, BrowserRouter as Router} from "react-router-dom";
+import { Link, Switch, Route, BrowserRouter as Router} from "react-router-dom";
 import Index from './components/login/Index';
 import NavBar from './components/NavBar'
 import Wellness from './pages/Wellness';
@@ -17,20 +17,21 @@ import ProfilePage from './pages/ProfilePage';
 
 
 function App() {
-  const[user, setUser] = useState(null);
+  const[user, setUser] = useState({});
   const [trainers, setTrainers] = useState([]);
   const [psychologists, setPsychologists] = useState([]);
   const [filterGender, setFilterGender] = useState('all')
   const [filterLanguage, setFilterLanguage] = useState('all')
   const [psychologistAppointment, setpsychologistAppointment] = useState([])
-  const [profile, setprofile] = useState([])
+  const [profiles, setprofiles] = useState([])
   
 
   useEffect(() => {
     // auto-login
     fetch("/me").then((r) => {
       if (r.ok) {
-        r.json().then((user) => setUser(user));
+        r.json().then((user) => {setUser(user)
+        });
       }
     });
   }, []);
@@ -75,32 +76,46 @@ const onFilterTrainer = () =>{
   }
 
   //fetch appointments
-  // useEffect(() => {
-  //   fetch("/psychologist_appointments")
-  //   .then((r) => r.json())
-  //   .then(setpsychologistAppointment);
-  // }, []);
+  useEffect(() => {
+    fetch("/psychologist_appointments")
+    .then((r) => r.json())
+    .then(setpsychologistAppointment);
+  }, []);
 
-  // function handleAddPsychAppointment(addedPsychAppointment){
-  //   setpsychologistAppointment((psychologistAppointment) => [...psychologistAppointment, addedPsychAppointment]);
-  // }
+  function handleAddPsychAppointment(addedPsychAppointment){
+    setpsychologistAppointment((psychologistAppointment) => [...psychologistAppointment, addedPsychAppointment]);
+  }
   //fetch profile
 
+  
   useEffect(() => {
-    fetch("/profile")
+    fetch("/profiles")
       .then((r) => r.json())
-      .then(setprofile);
+      .then(setprofiles);
   }, []);
-  function handleAddProfile(addedProfile){
-    setprofile((profile) => [...profile, addedProfile]);
+
+  function handleAddProfile(addedProfiles){
+    setprofiles((profiles) => [...profiles, addedProfiles]);
   }
 
+  function handleDeleteProfile(deletedProfiles) {
+    setprofiles((profiles) =>
+      profiles.filter((profile) => profile.id !== deletedProfiles.id)
+    );
+  }
+
+  const updateProfile = (profileId, newValue) =>{
+    if (!newValue.text || /^\s*$/.test(newValue.text)) {
+      return;
+    }
+      setprofiles(prev => prev.map(item => (item.id ===profileId ? newValue : item)))
+  }
 
   if (!user) return <Index onLogin={setUser} />;
 
   return (
     <>
-    <NavBar user={user} setUser={setUser} />
+    <NavBar profiles={profiles} user={user} setUser={setUser} />
     <Router>
     <main>
       <Switch>
@@ -143,12 +158,17 @@ const onFilterTrainer = () =>{
     />
     </Route>
     <Route path="/profile">
-    <Profile onAddProfile={handleAddProfile}/>
+    <Profile 
+    user={user}
+    onAddProfile={handleAddProfile}/>
     </Route>
     <Route path="/myprofile">
-    <ProfilePage 
-    key={profile.id}
-    profile={profile}/>
+    <ProfilePage
+    user={user}
+    updateProfile={updateProfile}
+    onDeleteProfile={handleDeleteProfile}
+    profiles={profiles}
+    />
     </Route>
       </Switch>
     </main>
